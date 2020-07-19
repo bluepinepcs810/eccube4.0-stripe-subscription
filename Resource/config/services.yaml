@@ -1,0 +1,7 @@
+
+services:
+    plg_stripe_rec.service.admin.plugin.config:
+        public: true
+        class: Plugin\StripeRec\Service\Admin\ConfigService
+        
+    

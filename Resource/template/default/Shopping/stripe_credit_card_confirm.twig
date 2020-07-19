@@ -1,0 +1,27 @@
+{% if Order.Payment.getMethodClass == 'Plugin\\StripePaymentGateway\\Service\\Method\\StripeCreditCard' %}
+    <script>
+        $(function () {
+            $('.ec-orderPayment').first().after($('#StripePaymentContainer'));
+
+            //BOC remove charge html if it is zero
+            {% set tempCharge = 0 %}
+            {% for item in Order.order_items if item.isCharge %}
+            {% set tempCharge = item.total_price %}
+            {% endfor %}
+            {% if(tempCharge==0) %}
+                var existingHTML=$(".ec-orderPayment:first .ec-blockRadio").html();
+                var chargeHTMLToSet=existingHTML.replace('({{ tempCharge|price }})','');
+                $(".ec-orderPayment:first .ec-blockRadio").html(chargeHTMLToSet);
+            {% endif %}
+            //EOC remove charge html if it is zero
+        });
+    </script>
+    <div style="display: none;">
+        <div id="StripePaymentContainer" class="ec-orderPayment">
+            {# {{ form_widget(form.stripe_payment_intent_id) }} #}
+            {# <div style="display: none">
+                {{ form_widget(form.is_save_card_on) }}
+            </div> #}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,14 @@
+{
+    "name": "ec-cube/StripeRec",
+    "version": "1.2.7",
+    "description": "StripeRec Subscription",
+    "type": "eccube-plugin",
+    "require": {
+      "stripe/stripe-php":"~7.27.3",
+      "ec-cube/plugin-installer": "~0.0.6"
+    },
+    "extra": {
+      "code": "StripeRec"
+    }
+  }
+  

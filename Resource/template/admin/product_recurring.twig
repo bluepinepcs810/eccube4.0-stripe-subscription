@@ -1,0 +1,18 @@
+<script>
+   (function($) {
+        let $navi_add = $(`
+            <div class="row">
+                <div class="col-3">
+                    <div class="d-inline-block">
+                        <span>{{ 'stripe_recurring.admin.product.edit.label'|trans }}</span>                        
+                    </div>
+                </div>
+                <div class="col mb-2">
+                    {{ form_widget(form.recurring_id) }}
+                    {{ form_errors(form.recurring_id) }}
+                </div>
+            </div>            
+        `);
+        $("#basicConfig .card-body").append($navi_add);
+   })(jQuery);
+</script>
