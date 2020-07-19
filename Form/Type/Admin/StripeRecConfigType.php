@@ -22,15 +22,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class StripeRecConfigType extends AbstractType
-{
+{    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('invoide_paid_url', TextType::class, [
-                'required' => false,                
-            ])
-            ->add('invoice_failed_url', TextType::class, [
-                'required' => false,                
+        $builder            
+            ->add('webhook_signature', TextType::class, [
+                'required' => false
             ]);
         
     }

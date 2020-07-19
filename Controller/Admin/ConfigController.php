@@ -19,9 +19,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Plugin\StripeRec\Form\Type\Admin\StripeRecConfigType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Plugin\StripeRec\Service\Admin\ConfigService;
 
 class ConfigController extends AbstractController
 {
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
     /**
      * @var StripeConfigRepository
      */
@@ -31,8 +38,11 @@ class ConfigController extends AbstractController
      *
      * @param StripeConfigRepository $stripeConfigRepository
      */
-    public function __construct(StripeConfigRepository $stripeConfigRepository)
+    public function __construct(
+        ContainerInterface $container,
+        StripeConfigRepository $stripeConfigRepository)
     {
+        $this->container = $container;
         $this->stripeConfigRepository = $stripeConfigRepository;
     }
 
@@ -42,22 +52,21 @@ class ConfigController extends AbstractController
      */
     public function index(Request $request)
     {
+        $config_service = $this->get("plg_stripe_rec.service.admin.plugin.config");
+        
+        $config_data = $config_service->getConfig();
 
-        $config_data = [
-
-        ];
-
-        $form = $this->createForm(StripeRecConfigType::class, $StripeConfig);
+        $form = $this->createForm(StripeRecConfigType::class, $config_data);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $StripeConfig = $form->getData();
-            $this->entityManager->persist($StripeConfig);
-            $this->entityManager->flush($StripeConfig);
+            $new_data = $form->getData();
+
+            $config_service->saveConfig($new_data);
 
             $this->addSuccess('stripe_payment_gateway.admin.save.success', 'admin');
 
-            return $this->redirectToRoute('stripe_payment_gateway_admin_config');
+            return $this->redirectToRoute('stripe_rec_admin_config');
         }
 
         return [

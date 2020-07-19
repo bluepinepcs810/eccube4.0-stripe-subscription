@@ -20,35 +20,13 @@
             <div class="c-contentsArea__primaryCol">
                 <div class="c-primaryCol">
                     <div class="card rounded border-0 mb-4">
-                        <div class="card-header"><span>{{ 'stripe_payment_gateway.admin.config.header'|trans }}</span></div>
-                        <div class="card-body">
+                        <div class="card-header"><span>{{ 'stripe_recurring.admin.config.header'|trans }}</span></div>
+                        <div class="card-body">                            
                             <div class="row">
-                                <div class="col-3"><span>{{ 'stripe_payment_gateway.admin.config.publishable_key'|trans }}</span><span
-                                            class="badge badge-primary ml-1">{{ 'stripe_payment_gateway.admin.config.required'|trans }}</span></div>
+                                <div class="col-3"><span>{{ 'stripe_recurring.admin.config.webhook_signature.label'|trans }}</span></div>
                                 <div class="col mb-2">
-                                    {{ form_widget(form.publishable_key) }}
-                                    {{ form_errors(form.publishable_key) }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3"><span>{{ 'stripe_payment_gateway.admin.config.secret_key'|trans }}</span><span
-                                            class="badge badge-primary ml-1">{{ 'stripe_payment_gateway.admin.config.required'|trans }}</span></div>
-                                <div class="col mb-2">
-                                    {{ form_widget(form.secret_key) }}
-                                    {{ form_errors(form.secret_key) }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3"><span>{{ 'stripe_payment_gateway.admin.config.charge_method'|trans }}</span></div>
-                                <div class="col mb-2">
-                                    {{ form_widget(form.is_auth_and_capture_on) }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3"><span>{{ 'stripe_payment_gateway.admin.config.stripe_fees_percent'|trans }}</span></div>
-                                <div class="col mb-2">
-                                    {{ form_widget(form.stripe_fees_percent) }}
-                                    {{ form_errors(form.stripe_fees_percent) }}
+                                    {{ form_widget(form.webhook_signature) }}
+                                    {{ form_errors(form.webhook_signature) }}
                                 </div>
                             </div>
                         </div>
@@ -64,7 +42,7 @@
                             <a class="c-beseLink"
                                href="{{ url('admin_store_plugin') }}">
                                 <i class="fa fa-backward" aria-hidden="true"></i>
-                                <span>{{ 'stripe_payment_gateway.admin.config.back'|trans }}</span>
+                                <span>プラグイン一覧</span>
                             </a>
                         </div>
                     </div>
@@ -72,7 +50,7 @@
                         <div class="row align-items-center justify-content-end">
                             <div class="col-auto">
                                 <button class="btn btn-ec-conversion px-5"
-                                        type="submit">{{ 'stripe_payment_gateway.admin.config.save'|trans }}</button>
+                                        type="submit">登録</button>
                             </div>
                         </div>
                     </div>

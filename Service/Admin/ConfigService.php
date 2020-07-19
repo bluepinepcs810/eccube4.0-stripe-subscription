@@ -17,10 +17,43 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigService{
 
-    public const INVOICE_PAID_URL = "INVOICE_PAID_URL";
-    public const INVOICE_PAY_FAILED = "INVOICE_PAY_FAILED";
+    const WEBHOOK_SIGNATURE = "webhook_signature";
 
-    public function getRecProperties($key){
+
+    /**
+     * コンテナ
+     */
+    private $container;
+    /**
+     * コンストラクタ
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+        
+    }
+
+    public function getConfig(){
+        return [
+            ConfigService::WEBHOOK_SIGNATURE =>  $this->get(ConfigService::WEBHOOK_SIGNATURE)
+        ];
+    }
+    public function getSignature(){
+        return $this->get(ConfigService::WEBHOOK_SIGNATURE);
+    }
+    public function saveConfig($new_data){
+        $old_data = $this->getConfig();
+        $diff_keys = [];
+        foreach($old_data as $k => $v){
+            if(!empty($new_data[$k]) && $new_data[$k] !== $old_data[$k]){
+                $diff_keys[] = $k;
+                $this->set($k, $new_data[$k]);
+            }
+        }
+        return $diff_keys;
+    }    
+    public function get($key){
         $rec_props_path = $this->container->getParameter('plugin_realdir'). '/StripeRec/Resource/config/webhook.properties';
         
         $rec_props = file($rec_props_path);
@@ -39,7 +72,7 @@ class ConfigService{
         }
         return null;
     }
-    public function setRecProperties($key, $s_val){
+    public function set($key, $s_val){
         
         $rec_props_path = $this->container->getParameter('plugin_realdir'). '/StripeRec/Resource/config/webhook.properties';
         $rec_props = file($rec_props_path);

@@ -1,4 +1,6 @@
 stripe_recurring.admin.product.edit.label: Recurring ID
+stripe_recurring.admin.config.webhook_signature.label: Webhook Signature
+stripe_recurring.admin.config.header: Stripe Subscribe Setting
 stripe_recurring.payment_method.name: StripeRecurring
 stripe_recurring.subscribe.failed: Subscription failed
 stripe_recurring.confirm.card_verify_error: Card Verify Error
