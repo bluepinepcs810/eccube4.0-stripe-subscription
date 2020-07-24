@@ -1,0 +1,36 @@
+stripe_recurring.admin.product.edit.label: Stripe Price Id
+stripe_recurring.admin.config.webhook_signature.label: Webhook Signature
+stripe_recurring.admin.config.header: Stripe Subscribe Setting
+stripe_recurring.admin.nav.rec_order: 定期コース
+stripe_recurring.admin.rec_order_subtitle: Stripe Recurring Order
+stripe_recurring.admin.rec_order.table.order_id: Order ID
+stripe_recurring.admin.rec_order.table.subscription_id: Subscription ID
+stripe_recurring.admin.rec_order.table.amount: Amount
+stripe_recurring.admin.rec_order.table.orderer: Orderer
+stripe_recurring.admin.rec_order.table.paid_status: Pay Status
+stripe_recurring.admin.rec_order.table.paid_status.desc: This is the payment status
+stripe_recurring.admin.rec_order.table.current_period_end: Current Period End
+stripe_recurring.admin.rec_order.table.last_payment_date: Last Payment Date
+stripe_recurring.admin.rec_order.table.rec_status: Recurring Status
+stripe_recurring.admin.rec_order.table.rec_status.desc: This indicates recurring status
+stripe_recurring.admin.rec_order.table.rec_cancel: Cancel
+stripe_recurring.admin.rec_order.table.action: Action
+stripe_recurring.admin.rec_order.delete_confirm: Confirm
+
+stripe_recurring.payment_method.name: StripeRecurring
+stripe_recurring.subscribe.failed: Subscription failed
+stripe_recurring.confirm.card_verify_error: Card Verify Error
+stripe_recurring.checkout.payment_method.retrieve_error: Payment Retrieve Error
+stripe_recurring.cart.quant_limit_error: There can be only one item in cart
+stripe_recurring.payment_method.name: Stripe Recurring
+stripe_recurring.label.paid_status.paid: Paid
+stripe_recurring.label.paid_status.upcoming: Upcoming
+stripe_recurring.label.paid_status.failed: Failed
+stripe_recurring.label.paid_status.undefined: Undefined
+stripe_recurring.label.rec_status.active: active
+stripe_recurring.label.rec_status.canceled: canceled
+stripe_recurring.mypage.recurring.breadcrump: 定期注文
+stripe_recurring.mypage.recurring.tab_label: 定期注文
+stripe_recurring.mypage.recurring.cancel: Cancel
+stripe_recurring.mypage.recurring.current_period: Current Period
+stripe_recurring.mypage.recurring.last_payment_date: Last Payment Date

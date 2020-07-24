@@ -117,6 +117,8 @@ class StripeRecurringMethod implements PaymentMethodInterface
      */
     protected $event_dispatcher;
 
+    const LOG_IF = "rrrmaj--stripeRecurringMethod---";
+
     /**
      * CreditCard constructor.
      *
@@ -259,20 +261,31 @@ class StripeRecurringMethod implements PaymentMethodInterface
             'expand' => ['latest_invoice.payment_intent']
         ]);
 
-        
+        log_info($subscription);
         if(isset($subscription['error'])){
             $result->setSuccess(false);
             $result->setErrors([trans('stripe_recurring.subscribe.failed')]);
             return $result;
         }
         
-
-        $stripeOrder = new StripeRecOrder();
+        log_info(StripeRecurringMethod::LOG_IF);
+        $stripeOrder = $this->entityManager->getRepository(StripeRecOrder::class)->findOneBy([
+            'subscription_id'       =>  $subscription->id,
+            'stripe_customer_id'    =>  $customer_id
+        ]);
+        if(empty($stripeOrder)){
+            log_info(StripeRecurringMethod::LOG_IF . "stripe order is empty in paymentmethod");
+            $stripeOrder = new StripeRecOrder();            
+            $stripeOrder->copyFrom($subscription);
+            $stripeOrder->setPaidStatus(StripeRecOrder::STATUS_PAY_UNDEFINED);
+        }
         $stripeOrder->setOrder($this->Order);
-        $stripeOrder->copyFrom($subscription);
+        $stripeOrder->setStripeCustomerId($customer_id);
+        $stripeOrder->setCustomer($this->Order->getCustomer());
         
         $this->entityManager->persist($stripeOrder);
-
+        $this->entityManager->flush();
+        $this->entityManager->commit();  
         // purchaseFlow::commitを呼び出し, 購入処理を完了させる.
         $this->purchaseFlow->commit($this->Order, new PurchaseContext());
 

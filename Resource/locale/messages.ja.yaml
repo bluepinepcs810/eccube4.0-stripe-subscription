@@ -1,8 +1,36 @@
-stripe_recurring.admin.product.edit.label: Recurring ID
-stripe_recurring.admin.config.webhook_signature.label: Webhook Signature
-stripe_recurring.admin.config.header: Stripe Subscribe Setting
-stripe_recurring.payment_method.name: StripeRecurring
-stripe_recurring.subscribe.failed: Subscription failed
-stripe_recurring.confirm.card_verify_error: Card Verify Error
-stripe_recurring.checkout.payment_method.retrieve_error: Payment Retrieve Error
-stripe_recurring.cart.quant_limit_error: There can be only one item in cart
+stripe_recurring.admin.product.edit.label: プランID
+stripe_recurring.admin.config.webhook_signature.label: Webhook署名シークレット
+stripe_recurring.admin.config.header: Stripe 定期支払い設定
+stripe_recurring.admin.nav.rec_order: 定期コース
+stripe_recurring.admin.rec_order_subtitle: Stripe Recurring Order
+stripe_recurring.admin.rec_order.table.order_id: 注文ID
+stripe_recurring.admin.rec_order.table.subscription_id: 定期支払い ID
+stripe_recurring.admin.rec_order.table.amount: 金額
+stripe_recurring.admin.rec_order.table.orderer: 注文者
+stripe_recurring.admin.rec_order.table.paid_status: 決済状態
+stripe_recurring.admin.rec_order.table.paid_status.desc: 決済状態
+stripe_recurring.admin.rec_order.table.current_period_end: 当期末
+stripe_recurring.admin.rec_order.table.last_payment_date: 最終決済日
+stripe_recurring.admin.rec_order.table.rec_status: 定期購入状態
+stripe_recurring.admin.rec_order.table.rec_status.desc: 定期購入状態
+stripe_recurring.admin.rec_order.table.rec_cancel: キャンセル
+stripe_recurring.admin.rec_order.table.action: アクション
+stripe_recurring.admin.rec_order.delete_confirm: 確認
+stripe_recurring.admin.rec_order.delete_cancel: キャンセル
+
+stripe_recurring.payment_method.name: Stripe 定期支払い
+stripe_recurring.subscribe.failed: 定期支払い失敗
+stripe_recurring.confirm.card_verify_error: カード検証エラー
+stripe_recurring.checkout.payment_method.retrieve_error: 支払い取得エラー
+stripe_recurring.cart.quant_limit_error: この商品は1つしかカートに入れることができません。
+stripe_recurring.label.paid_status.paid: 支払い済み
+stripe_recurring.label.paid_status.upcoming: 待機
+stripe_recurring.label.paid_status.failed: 失敗
+stripe_recurring.label.paid_status.undefined: 未定
+stripe_recurring.label.rec_status.active: アクティブ
+stripe_recurring.label.rec_status.canceled: キャンセル済み
+stripe_recurring.mypage.recurring.breadcrump: 定期注文
+stripe_recurring.mypage.recurring.tab_label: 定期注文
+stripe_recurring.mypage.recurring.cancel: キャンセル
+stripe_recurring.mypage.recurring.current_period: 当期
+stripe_recurring.mypage.recurring.last_payment_date: 最終決済日

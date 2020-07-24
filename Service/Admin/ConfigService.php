@@ -19,6 +19,14 @@ class ConfigService{
 
     const WEBHOOK_SIGNATURE = "webhook_signature";
 
+    //=======mail config=========
+    const PAID_MAIL_NAME = "Stripe Subscription paid";
+    const PAY_FAILED_MAIL_NAME = "Stripe Subscription payment failed";
+    const PAY_UPCOMING = "Stripe Subsciption Payment Upcoming";
+    const REC_CANCELED = "Stripe Subscription Canceled";
+
+    //===========================
+
 
     /**
      * コンテナ
@@ -38,6 +46,11 @@ class ConfigService{
         return [
             ConfigService::WEBHOOK_SIGNATURE =>  $this->get(ConfigService::WEBHOOK_SIGNATURE)
         ];
+    }
+
+    public function isMailerSetting(){
+        $mailer_url = env("MAILER_URL", "none");
+        return $mailer_url !== "none";
     }
     public function getSignature(){
         return $this->get(ConfigService::WEBHOOK_SIGNATURE);

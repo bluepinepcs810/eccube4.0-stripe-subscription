@@ -88,9 +88,26 @@ class Event implements EventSubscriberInterface
             EccubeEvents::ADMIN_PRODUCT_EDIT_INITIALIZE => "onProductEditInit",
             "@admin/Product/product.twig" => "onProductEdit",
             'Shopping/confirm.twig' => 'onShoppingConfirmTwig',
-            'Shopping/index.twig' => 'onShoppingIndexTwig'            
-            
+            'Shopping/index.twig' => 'onShoppingIndexTwig',        
+            EccubeEvents::MAIL_ORDER => 'sendOrderMailBefore',
+
+            'Mypage/index.twig' => 'myPageNaviRenderBefore',
+            'Mypage/history.twig' => 'myPageNaviRenderBefore',
+            'Mypage/favorite.twig' => 'myPageNaviRenderBefore',
+            'Mypage/change.twig' => 'myPageNaviRenderBefore',
+            'Mypage/change_complete.twig' => 'myPageNaviRenderBefore',
+            'Mypage/delivery.twig' => 'myPageNaviRenderBefore',
+            'Mypage/delivery_edit.twig' => 'myPageNaviRenderBefore',
+            'Mypage/withdraw.twig' => 'myPageNaviRenderBefore',  
+            'StripeRec/Resource/template/Mypage/recurring_tab.twig' => 'myPageNaviRenderBefore'
         ];
+    }
+    public function sendOrderMailBefore(EventArgs $event)
+    {
+        $this->container->get('plg_stripe_rec.service.email.service')->onSendOrderMailBefore($event);
+    }
+    public function myPageNaviRenderBefore(TemplateEvent $event){
+        $event->addSnippet('@StripeRec/default/Mypage/navi.twig');
     }
     public function onProductEditInit(EventArgs $event){
         $builder = $event['builder'];

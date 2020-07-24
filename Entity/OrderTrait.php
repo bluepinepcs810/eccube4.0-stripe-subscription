@@ -26,4 +26,7 @@ trait OrderTrait
 
         return $product->isSetRecurring();
     }
+    public function getFullKana(){
+        return $this->kana01 . $this->kana02;
+    }
 }

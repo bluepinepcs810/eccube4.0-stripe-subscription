@@ -125,7 +125,7 @@ class StripeRecurringController extends AbstractController
         $isSaveCardOn = true;
         $stripeCustomerId = $this->procStripeCustomer($stripeClient, $Order, $isSaveCardOn);
         if(is_array($stripeCustomerId)) { // エラー
-            return $this->json(["error" => "Cusomer Creation Error"]);
+            return $this->json(["error" => $stripeCustomerId]);
         }
         
         if($Order->isSetRecurring()){
@@ -133,7 +133,6 @@ class StripeRecurringController extends AbstractController
             $this->session->getFlashBag()->set("payment_method_id", $paymentMethodId);
             return $this->json(["error" => false]);
         }else {
-        
             return $this->json(["error" => "Not Recurring Product"]);
         }
     }

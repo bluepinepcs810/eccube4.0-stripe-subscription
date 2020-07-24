@@ -1,0 +1,3 @@
+twig:
+    globals:
+        util_service: "@plg_stripe_rec.service.util"
