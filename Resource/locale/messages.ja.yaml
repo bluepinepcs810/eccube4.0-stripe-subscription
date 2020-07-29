@@ -2,7 +2,7 @@ stripe_recurring.admin.product.edit.label: プランID
 stripe_recurring.admin.config.webhook_signature.label: Webhook署名シークレット
 stripe_recurring.admin.config.header: Stripe 定期支払い設定
 stripe_recurring.admin.nav.rec_order: 定期コース
-stripe_recurring.admin.rec_order_subtitle: Stripe Recurring Order
+stripe_recurring.admin.rec_order_subtitle: Stripe 定期支払い
 stripe_recurring.admin.rec_order.table.order_id: 注文ID
 stripe_recurring.admin.rec_order.table.subscription_id: 定期支払い ID
 stripe_recurring.admin.rec_order.table.amount: 金額
@@ -17,6 +17,15 @@ stripe_recurring.admin.rec_order.table.rec_cancel: キャンセル
 stripe_recurring.admin.rec_order.table.action: アクション
 stripe_recurring.admin.rec_order.delete_confirm: 確認
 stripe_recurring.admin.rec_order.delete_cancel: キャンセル
+stripe_recurring.admin.rec_order.delete_confirm_msg: サブスクリプションの支払いを本当にキャンセルしますか？
+stripe_recurring.admin.product.register: 商品登録
+stripe_recurring.admin.product_class.register_flg: 登録
+stripe_recurring.admin.product_class.stripe_id_label: Stripe Id
+stripe_recurring.admin.nav.rec_config: 定期支払い設定
+stripe_rec.admin.save.success: 設定を保存しました。
+stripe_rec.admin.nav.name: Stripe 管理
+stripe_rec.admin.stripe_price.register_err: Stripeプランを登録できません。
+stripe_rec.admin.stripe_price.update_err: Stripeプランを変更できません。
 
 stripe_recurring.payment_method.name: Stripe 定期支払い
 stripe_recurring.subscribe.failed: 定期支払い失敗

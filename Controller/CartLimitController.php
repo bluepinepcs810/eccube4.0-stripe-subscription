@@ -3,9 +3,7 @@
 /*
  * This file is part of EC-CUBE
  *
- * Copyright(c) devcrazygit. All Rights Reserved.
- *
- * https://github.com/devcrazygit
+ * Copyright(c) Subspire. All Rights Reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -175,7 +173,6 @@ class CartLimitController extends AbstractController
                 }
             }
         }
-        // die("444");
         if (!$check_quant){
             $errorMessages[] = trans("stripe_recurring.cart.quant_limit_error");
 

@@ -2,16 +2,18 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
-*
+* Copyright (C) 2020 Subspire. All Rights Reserved.
+
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
 
 namespace Plugin\StripeRec\Service\Method;
 
-include_once(dirname(__FILE__).'/../../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+if( \file_exists(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php')) {
+    include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+}
+
 use Stripe\Customer as StripeLibCustomer;
 use Stripe\PaymentMethod;
 use Stripe\Subscription;
@@ -249,13 +251,15 @@ class StripeRecurringMethod implements PaymentMethodInterface
         ]);
 
         $order_items = $this->Order->getProductOrderItems();
-        $product = $order_items[0]->getProduct();
-        $price_id = $product->getRecurringId();
+        $product_class = $order_items[0]->getProductClass();
+        if(!$product_class->isRegistered()){
+            throw new Exception;
+        }
         $subscription = Subscription::create([
             'customer' => $customer_id,
             'items'    => [
                 [
-                    'price' => $price_id
+                    'price' => $product_class->getStripePriceId()
                 ]
             ],
             'expand' => ['latest_invoice.payment_intent']

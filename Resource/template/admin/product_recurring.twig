@@ -8,11 +8,67 @@
                     </div>
                 </div>
                 <div class="col mb-2">
-                    {{ form_widget(form.recurring_id) }}
-                    {{ form_errors(form.recurring_id) }}
+                    <div class="d-block text-left">
+                        {% if Product.StripeProdId %}
+                        {{ Product.StripeProdId }}
+                        {% else %}                         
+                            <a class="btn btn-ec-regular" data-action="stripe-register" data-url="{{ path('stripe_rec_product_stripe_register', { 'id' : id }) }}">
+                            {{ 'stripe_recurring.admin.product.register'|trans }}                            
+                            </a>                    
+                        {% endif %}
+                    </div>
                 </div>
-            </div>            
+            </div>
+            <div class="modal fade" id="stripe-reg-result" tabindex="-1" role="dialog"
+                aria-labelledby="stripe-reg-result" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ 'admin.common.move_to_confirm_title'|trans }}</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="screen-name"></p>
+                        </div>
+                        <div class="modal-footer">                            
+                            <a class="btn btn-ec-sub" data-action="ok">
+                                Ok
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         `);
         $("#basicConfig .card-body").append($navi_add);
+        $("a[data-action='stripe-register']").on('click', function($e){
+            let $this = $(this);
+            let modal_func = function(){
+                let modal = $("#stripe-reg-result");
+                modal.modal("show");
+                modal.find('a[data-action="ok"]').on('click', function(){$("#stripe-reg-result").modal("hide");});
+            }
+            $.ajax({
+                url: $this.data('url'),
+                type: 'post',
+                data: { 'id' : {{ id }} },
+                dataType: 'json',
+                beforeSend: function() {
+                        // Buttonを無効にする
+                         $("a[data-action='stripe-register']").prop('disabled', true);
+                    }
+            }).done(function(data){
+                if(data.result){
+                    
+                    location.href = "{{ path('admin_product_product_edit', { 'id' : id }) }}";
+                } else {
+                    modal_func();
+                }
+            }).fail(function(){
+                modal_func()
+            })            
+        })
+
    })(jQuery);
 </script>

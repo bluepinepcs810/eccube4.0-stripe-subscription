@@ -2,15 +2,16 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
+* Copyright (C) 2020 Subspire. All Rights Reserved.
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
 
 namespace Plugin\StripeRec\Service;
-include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+if( \file_exists(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php')) {
+    include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+}
 
 use Stripe\Subscription;
 use Stripe\Stripe;
@@ -91,5 +92,15 @@ class UtilService{
         $em->persist($rec_order);
         $em->flush();
 
+    }
+
+    public function checkProductClassPriceId($register_flg){
+        $interval_arr = [
+            'day', 'month', 'quarter', 'semiannual','year', 'none'
+        ];
+        if(!empty($register_flg) && in_array($register_flg, $interval_arr)){
+            return false;
+        }
+        return $register_flg;
     }
 }

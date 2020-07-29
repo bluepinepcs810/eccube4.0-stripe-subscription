@@ -2,15 +2,16 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
+* Copyright (C) 2020 Subspire. All Rights Reserved.
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
 
 namespace Plugin\StripeRec\Controller;
-include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+if( \file_exists(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php')) {
+    include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+}
 
 use Stripe\Webhook;
 use Eccube\Controller\AbstractController;
@@ -118,6 +119,9 @@ class RecurringHookController extends AbstractController{
               // Send notification to your user that the trial will end
               log_info('🔔 ' . $type . ' Webhook received! ' . $object);
               break;
+            case 'customer.subscription.updated':
+                log_info('🔔 ' . $type . ' Webhook received! ' . $object);      
+                $this->subscriptionUpdated($object);          
             // ... handle other event types
             default:
               // Unhandled event type
@@ -141,6 +145,20 @@ class RecurringHookController extends AbstractController{
         if(!empty($order)){
             $this->mail_service->sendOrderMail($order);
         }
+    }
+
+    public function subscriptionUpdated($object){
+        $sub_id = $object->id;
+        $items = $object->items->data;
+        
+        if(!empty($items[0]->price->id)){
+            $rec_order = $this->rec_order_repo->findOneBy(['subscription_id' =>  $sub_id]);
+            if(!empty($rec_order)){
+                $rec_order->setPriceId($items[0]->price->id);
+                $this->em->persist($rec_order);
+                $this->em->flush();
+            }            
+        }    
     }
 
     public function updateRecOrderStatus($sub_id, $paid_status){

@@ -3,8 +3,7 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
+* Copyright (C) 2020 Subspire. All Rights Reserved.
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
@@ -12,7 +11,9 @@
 
 namespace Plugin\StripeRec\Controller;
 
-include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+if( \file_exists(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php')) {
+    include_once(dirname(__FILE__).'/../../StripePaymentGateway/vendor/stripe/stripe-php/init.php');
+}
 use Eccube\Common\EccubeConfig;
 use Eccube\Controller\AbstractController;
 use Eccube\Entity\Customer;
@@ -128,7 +129,7 @@ class StripeRecurringController extends AbstractController
             return $this->json(["error" => $stripeCustomerId]);
         }
         
-        if($Order->isSetRecurring()){
+        if($Order->hasStripePriceId()){
             $this->session->getFlashBag()->set("stripe_customer_id", $stripeCustomerId);
             $this->session->getFlashBag()->set("payment_method_id", $paymentMethodId);
             return $this->json(["error" => false]);

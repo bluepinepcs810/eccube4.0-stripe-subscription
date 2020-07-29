@@ -3,8 +3,7 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
+* Copyright (C) 2020 Subspire. All Rights Reserved.
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
@@ -46,7 +45,9 @@ class PluginManager extends AbstractPluginManager{
         // $js_contents = file_get_contents($this->stripe_js_file_path);
         // file_put_contents($this->backup_path, $js_contents);
         // $instead_js = file_get_contents($this->stripe_instead);
-        // file_put_contents($this->stripe_js_file_path, $instead_js);      
+        // file_put_contents($this->stripe_js_file_path, $instead_js);  
+        
+        // throw new \Exception();
         $this->createTokenPayment($container);
         $this->insertMailTemplate($container);
         $this->registerPageForUpdate($container);

@@ -2,8 +2,7 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
+* Copyright (C) 2020 Subspire. All Rights Reserved.
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
@@ -22,23 +21,21 @@ use Eccube\Entity\Product;
 
 trait ProductTrait
 {
+
     /**
      * @var string
-     *
-     * @ORM\Column(name="recurring_id", type="string", length=255, nullable=true)
+     * @ORM\Column(name="stripe_prod_id", type="string", length=255, nullable=true)
      */
-    private $recurring_id;
+    private $stripe_prod_id;
 
-    public function setRecurringId($recurring_id){
-        $this->recurring_id = $recurring_id;
-        return $this;
+    public function setStripeProdId($stripe_prod_id){
+        $this->stripe_prod_id = $stripe_prod_id;
     }
-    public function getRecurringId(){
-        return $this->recurring_id;
+    public function getStripeProdId(){
+        return $this->stripe_prod_id;
     }
-
-    public function isSetRecurring(){
-        return !empty($this->recurring_id);
+    public function isStripeProduct(){
+        return !empty($this->stripe_prod_id);
     }
 
 }

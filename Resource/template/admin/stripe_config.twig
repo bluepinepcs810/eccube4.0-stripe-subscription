@@ -1,6 +1,6 @@
 {% extends '@admin/default_frame.twig' %}
 
-{% set menus = ['stripe', 'stripe_config'] %}
+{% set menus = ['stripe', 'stripe_rec_config'] %}
 
 {% block title %}{{ 'stripe_payment_gateway.admin.config.title'|trans }}{% endblock %}
 {% block sub_title %}{{ 'stripe_payment_gateway.admin.config.sub_title'|trans }}{% endblock %}
@@ -32,7 +32,7 @@
                             <div class="row" style="margin-top: 20px;">
                                 <div class="col-3"><span>Webhook URL</span></div>
                                 <div class="col mb-2">
-                                    https://your_domain.com/plugin/StripeRec/webhook
+                                    https://{{ domain_name }}/plugin/StripeRec/webhook
                                 </div>
                             </div>
                         </div>

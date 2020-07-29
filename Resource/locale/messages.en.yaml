@@ -16,13 +16,22 @@ stripe_recurring.admin.rec_order.table.rec_status.desc: This indicates recurring
 stripe_recurring.admin.rec_order.table.rec_cancel: Cancel
 stripe_recurring.admin.rec_order.table.action: Action
 stripe_recurring.admin.rec_order.delete_confirm: Confirm
+stripe_recurring.admin.rec_order.delete_cancel: Cancel
+stripe_recurring.admin.rec_order.delete_confirm_msg: Are you sure?
+stripe_recurring.admin.product.register: Product Register
+stripe_recurring.admin.product_class.register_flg: Register
+stripe_recurring.admin.product_class.stripe_id_label: Stripe Id
+stripe_recurring.admin.nav.rec_config: Recurring Setting
+stripe_rec.admin.save.success: Successfully save a configuration
+stripe_rec.admin.nav.name: Stripe Management
+stripe_rec.admin.stripe_price.register_err: Stripe register was failed.
+stripe_rec.admin.stripe_price.update_err: Stripe update was failed.
 
 stripe_recurring.payment_method.name: StripeRecurring
 stripe_recurring.subscribe.failed: Subscription failed
 stripe_recurring.confirm.card_verify_error: Card Verify Error
 stripe_recurring.checkout.payment_method.retrieve_error: Payment Retrieve Error
 stripe_recurring.cart.quant_limit_error: There can be only one item in cart
-stripe_recurring.payment_method.name: Stripe Recurring
 stripe_recurring.label.paid_status.paid: Paid
 stripe_recurring.label.paid_status.upcoming: Upcoming
 stripe_recurring.label.paid_status.failed: Failed

@@ -17,3 +17,13 @@ services:
         class: Plugin\StripeRec\Service\UtilService
         arguments:
             - '@service_container'
+    plg_stripe_rec.service.product_service:
+        public: true
+        class: Plugin\StripeRec\Service\Admin\ProductRecService
+        arguments:
+            - '@service_container'
+    plg_stripe_rec.service.stripe_service:
+        public: true
+        class: Plugin\StripeRec\Service\StripeService
+        arguments:
+            - '@service_container'

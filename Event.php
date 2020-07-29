@@ -2,8 +2,7 @@
 /*
 * Plugin Name : StripeRec
 *
-* Copyright (C) 2020 devcrazy. All Rights Reserved.
-* https://github.com/devcrazygit
+* Copyright (C) 2020 Subspire. All Rights Reserved.
 *
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
@@ -16,11 +15,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Event\EccubeEvents;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Event\TemplateEvent;
 use Plugin\StripePaymentGateway\Repository\StripeConfigRepository;
-use Plugin\StripePaymentGateway\Service\Method\StripeCreditCard;
 use Eccube\Entity\Payment;
 use Plugin\StripeRec\Service\Method\StripeRecurringMethod;
 use Plugin\StripePaymentGateway\Repository\StripeCustomerRepository;
@@ -85,7 +84,8 @@ class Event implements EventSubscriberInterface
      */
     public static function getSubscribedEvents(){
         return [
-            EccubeEvents::ADMIN_PRODUCT_EDIT_INITIALIZE => "onProductEditInit",
+            // EccubeEvents::ADMIN_PRODUCT_EDIT_INITIALIZE => "onProductEditInit",
+            // EccubeEvents::ADMIN_PRODUCT_EDIT_COMPLETE => 'onProductEditComplete',
             "@admin/Product/product.twig" => "onProductEdit",
             'Shopping/confirm.twig' => 'onShoppingConfirmTwig',
             'Shopping/index.twig' => 'onShoppingIndexTwig',        
@@ -109,18 +109,19 @@ class Event implements EventSubscriberInterface
     public function myPageNaviRenderBefore(TemplateEvent $event){
         $event->addSnippet('@StripeRec/default/Mypage/navi.twig');
     }
-    public function onProductEditInit(EventArgs $event){
-        $builder = $event['builder'];
-        $product = $event['Product'];
-        $builder->add('recurring_id', TextType::class);
+    public function onProductEditComplete(EventArgs $event){
+        $this->container->get('plg_stripe_rec.service.product_service')->onProductEditComplete($event);
     }
+    // public function onProductEditInit(EventArgs $event){
+    //     $this->container->get('plg_stripe_rec.service.product_service')->onProductEditInit($event);
+    // }
 
     public function onProductEdit(TemplateEvent $event){
         
         $event->addSnippet('@StripeRec/admin/product_recurring.twig');
     }
     public function onShoppingConfirmTwig(TemplateEvent $event){
-        // die("here");
+        
     }
     public function onShoppingIndexTwig(TemplateEvent $event){
         $Order=$event->getParameter('Order');
@@ -131,7 +132,7 @@ class Event implements EventSubscriberInterface
             
             if ($Order->getPayment()->getMethodClass() === StripeRecurringMethod::class
                 &&  $this->isEligiblePaymentMethod($Order->getPayment(),$Order->getPaymentTotal())
-                 && $Order->isSetRecurring()) {
+                 && $Order->hasStripePriceId()) {
                 
                 $stripeClient = new StripeClient($StripeConfig->secret_key);
                 //BOC check if registered shop customer
